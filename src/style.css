@@ -1,0 +1,126 @@
+body {
+  background-color: #8080800d;
+}
+* {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  -khtml-user-drag: none;
+  -ms-user-drag: none;
+  user-drag: none;
+}
+#playfield {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background: #bbada0;
+  border: 15px solid #bbada0;
+  margin: 10% auto;
+}
+.back {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(238, 228, 218, 0.35);
+  /* border-radius: 15px; */
+  border: 1px solid transparent;
+  box-shadow: inset 0px 0px 4px -4px black;
+}
+.thing {
+  position: absolute;
+  margin-top: 4px;
+  margin-left: 4px;
+  width: 94px;
+  height: 94px;
+  box-shadow: inset 0px 0px 2px -1px #431b1b;
+  background: transparent;
+  color: #fffffff2;
+  border-radius: 10px;
+  text-align: center;
+  font: 35px/96px Arial;
+  transition: top ease 0.25s, left ease 0.25s;
+  font-weight: 900;
+  z-index: 999;
+}
+.thing.t2 {
+  background: #519748;
+}
+.thing.t2:after {
+  content: "2";
+}
+.thing.t4 {
+  background: #65a20f;
+}
+.thing.t4:after {
+  content: "4";
+}
+.thing.t8 {
+  background: #8c8e00;
+}
+.thing.t8:after {
+  content: "8";
+}
+.thing.t16 {
+  background: #d38200;
+}
+.thing.t16:after {
+  content: "16";
+}
+.thing.t32 {
+  background: #ae3900;
+}
+.thing.t32:after {
+  content: "32";
+}
+.thing.t64 {
+  background: #931269;
+}
+.thing.t64:after {
+  content: "64";
+}
+.thing.t128 {
+  background: #2f258ff2;
+}
+.thing.t128:after {
+  content: "128";
+}
+.thing.t256:after {
+  content: "256";
+}
+.thing.t256 {
+  background: #4a156a;
+}
+.thing.t512:after {
+  content: "512";
+}
+.thing.t512 {
+  background: #65156a;
+}
+.thing.t1024:after {
+  content: "1024";
+}
+.thing.t1024 {
+  background: #6a1548;
+}
+.thing.t2048:after {
+  content: "2048";
+}
+.thing.t2048 {
+  background: #6a1525;
+}
+#end-box {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  position: absolute;
+  left: calc(100% - 60rem);
+  z-index: 9999;
+  display: block;
+}
+/* и так далее */
