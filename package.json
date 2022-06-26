@@ -4,13 +4,17 @@
   "description": "Game analog 2048",
   "main": "src/app.js",
   "scripts": {
-    "build": "rm -rf dist; rollup -c"
+    "build": "rm -rf dist; rollup -c",
+    "lint": "eslint src/*.js",
+    "lint:fix": "yarn lint --fix"
   },
   "author": "Andreev Sergey <elenik1994@gmail.com>",
   "license": "MIT",
   "repository": "https://github.com/elenik72/2048.git",
   "private": false,
   "devDependencies": {
+    "eslint": "^8.18.0",
+    "prettier": "^2.7.1",
     "rollup": "^2.75.7",
     "rollup-plugin-generate-html-template": "^1.7.0",
     "rollup-plugin-import-css": "^3.0.3",
