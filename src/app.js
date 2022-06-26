@@ -5,7 +5,7 @@ const SIZE_HEIGHT = 4
 
 let down = {
   x: 0,
-  y: 0,
+  y: 0
 }
 let move = Object.assign({}, down)
 
@@ -13,18 +13,20 @@ const moveUp = (e) => {
   move = {
     ...move,
     x: e.screenX,
-    y: e.screenY,
+    y: e.screenY
   }
 }
 
 function render() {
   return new Promise((resolve) => setTimeout(resolve, 250))
 }
+
 async function create() {
   await render()
   game.clearChildNode()
   game.render()
 }
+
 class UI {
   constructor() {
     this.container = document.getElementById('playfield')
@@ -33,9 +35,9 @@ class UI {
         number: 0,
         position: {
           top: 0,
-          left: 0,
+          left: 0
         },
-        isChange: false,
+        isChange: false
       })
     )
     this.copyField = [...this.field]
@@ -49,10 +51,12 @@ class UI {
     this.random()
     this.render()
   }
+
   checkRand(y, x) {
     if (this.field[y][x].number > 0) return true
     else false
   }
+
   random() {
     do {
       this.y = Math.floor(Math.random() * 4)
@@ -63,21 +67,23 @@ class UI {
       number: Math.floor(Math.random() + 1 * 2),
       position: {
         top: this.y * 100,
-        left: this.x * 100,
+        left: this.x * 100
       },
-      isChange: false,
+      isChange: false
     }
   }
+
   clear(i, j) {
     this.field[i][j] = {
       number: 0,
       position: {
         top: 0,
-        left: 0,
+        left: 0
       },
-      isChange: false,
+      isChange: false
     }
   }
+
   clearChildNode() {
     for (let i = this.container.childNodes.length - 1; i >= 0; i--) {
       if (
@@ -88,10 +94,12 @@ class UI {
       }
     }
   }
+
   randomView() {
     if (this.eatFlag) this.random()
     this.eatFlag = false
   }
+
   moving(direct) {
     let startY, startX, endX, endY, state, condition, modX, modY, mod
     switch (direct) {
@@ -178,8 +186,8 @@ class UI {
                 number,
                 position: {
                   top: handlerDirect ? dY * 100 : top,
-                  left: handlerDirect ? left : dX * 100,
-                },
+                  left: handlerDirect ? left : dX * 100
+                }
               }
               coord = this.field[dY][dX].position.top
               coordL = this.field[dY][dX].position.left
@@ -214,9 +222,9 @@ class UI {
                   number: number * 2,
                   position: {
                     top: handlerDirect ? dY * 100 + 100 * modY : top,
-                    left: handlerDirect ? left : dX * 100 + 100 * mod,
+                    left: handlerDirect ? left : dX * 100 + 100 * mod
                   },
-                  isChange: true,
+                  isChange: true
                 }
                 if (this.field[dy][dx].number >= 2048) {
                   location.href = 'https://youtu.be/dQw4w9WgXcQ?t=85'
@@ -232,15 +240,17 @@ class UI {
       }
       create()
     }
+
     for (let i = 0; i < SIZE_HEIGHT; i++) {
       for (let j = 0; j < SIZE_WIDTH; j++) {
         this.field[i][j] = {
           ...this.field[i][j],
-          isChange: false,
+          isChange: false
         }
       }
     }
   }
+
   direction() {
     document.addEventListener('keydown', (e) => {
       switch (e.key) {
@@ -260,6 +270,7 @@ class UI {
       this.randomView()
     })
   }
+
   render() {
     for (let i = 0; i < SIZE_HEIGHT; i++) {
       for (let j = 0; j < SIZE_WIDTH; j++) {
@@ -274,6 +285,7 @@ class UI {
     }
   }
 }
+
 const game = new UI()
 game.direction()
 
@@ -281,7 +293,7 @@ window.addEventListener('mousedown', (e) => {
   down = {
     ...down,
     x: e.screenX,
-    y: e.screenY,
+    y: e.screenY
   }
 
   window.addEventListener('mousemove', moveUp)
