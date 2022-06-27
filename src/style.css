@@ -52,64 +52,64 @@ body {
   background: #519748;
 }
 .thing.t2:after {
-  content: "2";
+  content: '2';
 }
 .thing.t4 {
   background: #65a20f;
 }
 .thing.t4:after {
-  content: "4";
+  content: '4';
 }
 .thing.t8 {
   background: #8c8e00;
 }
 .thing.t8:after {
-  content: "8";
+  content: '8';
 }
 .thing.t16 {
   background: #d38200;
 }
 .thing.t16:after {
-  content: "16";
+  content: '16';
 }
 .thing.t32 {
   background: #ae3900;
 }
 .thing.t32:after {
-  content: "32";
+  content: '32';
 }
 .thing.t64 {
   background: #931269;
 }
 .thing.t64:after {
-  content: "64";
+  content: '64';
 }
 .thing.t128 {
   background: #2f258ff2;
 }
 .thing.t128:after {
-  content: "128";
+  content: '128';
 }
 .thing.t256:after {
-  content: "256";
+  content: '256';
 }
 .thing.t256 {
   background: #4a156a;
 }
 .thing.t512:after {
-  content: "512";
+  content: '512';
 }
 .thing.t512 {
   background: #65156a;
 }
 .thing.t1024:after {
-  content: "1024";
+  content: '1024';
 }
 .thing.t1024 {
   background: #6a1548;
 }
 .thing.t2048:after {
-  content: "2048";
+  content: '2048';
 }
 .thing.t2048 {
   background: #6a1525;
