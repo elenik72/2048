@@ -5,6 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "build": "rm -rf dist; rollup -c",
+    "watch": "yarn build --watch",
+    "format": "prettier --write .",
     "lint": "eslint src/*.js",
     "lint:fix": "yarn lint --fix"
   },
