@@ -1,7 +1,14 @@
 import './style.css'
+import Keyboard from './keyboard'
+import Logger from './logger'
+import Settings from './settings'
 
 const SIZE_WIDTH = 4
 const SIZE_HEIGHT = 4
+
+const logger = Logger.make(console)
+const settings = Settings.make({ width: SIZE_WIDTH, height: SIZE_HEIGHT })
+const keyboard = Keyboard.make({ logger })
 
 let down = {
   x: 0,
@@ -252,23 +259,23 @@ class UI {
   }
 
   direction() {
-    document.addEventListener('keydown', (e) => {
-      switch (e.key) {
-        case 'w':
-          this.moving('up')
-          break
-        case 's':
-          this.moving('down')
-          break
-        case 'd':
-          this.moving('right')
-          break
-        case 'a':
-          this.moving('left')
-          break
-      }
-      this.randomView()
-    })
+    // document.addEventListener('keydown', (e) => {
+    //   switch (e.key) {
+    //     case 'w':
+    //       this.moving('up')
+    //       break
+    //     case 's':
+    //       this.moving('down')
+    //       break
+    //     case 'd':
+    //       this.moving('right')
+    //       break
+    //     case 'a':
+    //       this.moving('left')
+    //       break
+    //   }
+    //   this.randomView()
+    // })
   }
 
   render() {
