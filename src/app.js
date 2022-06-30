@@ -5,40 +5,35 @@ import Settings from './settings'
 
 const SIZE_WIDTH = 4
 const SIZE_HEIGHT = 4
+const MOVE_TIME_MS = 250
 
 const logger = Logger.make(console)
-const settings = Settings.make({ width: SIZE_WIDTH, height: SIZE_HEIGHT })
-const keyboard = Keyboard.make({ logger })
+const settings = Settings.make({ width: SIZE_WIDTH, height: SIZE_HEIGHT, delay: MOVE_TIME_MS })
 
-let down = {
-  x: 0,
-  y: 0
+function wait (time) {
+  return new Promise((resolve) => setTimeout(resolve, time))
 }
-let move = Object.assign({}, down)
 
-const moveUp = (e) => {
-  move = {
-    ...move,
-    x: e.screenX,
-    y: e.screenY
+function create () {
+  wait(settings.delay).then(() => {
+    game.clearChildNode()
+    game.render()
+  })
+}
+
+class Game {
+  #controls = {
+    w: () => this.moving('up'),
+    s: () => this.moving('down'),
+    d: () => this.moving('right'),
+    a: () => this.moving('left')
   }
-}
 
-function render() {
-  return new Promise((resolve) => setTimeout(resolve, 250))
-}
-
-async function create() {
-  await render()
-  game.clearChildNode()
-  game.render()
-}
-
-class UI {
   constructor() {
+    this.keyboard = Keyboard.make({ logger, controls: this.#controls })
     this.container = document.getElementById('playfield')
-    this.field = Array.from(Array(SIZE_HEIGHT), () =>
-      new Array(SIZE_WIDTH).fill({
+    this.field = Array.from(Array(settings.height), () =>
+      new Array(settings.width).fill({
         number: 0,
         position: {
           top: 0,
@@ -112,9 +107,9 @@ class UI {
     switch (direct) {
       case 'up':
         startY = 0
-        endY = SIZE_HEIGHT
+        endY = settings.height
         startX = 0
-        endX = SIZE_WIDTH
+        endX = settings.width
         state = 'vector >= 0'
         condition = 0
         modY = -1
@@ -122,20 +117,20 @@ class UI {
         mod = -1
         break
       case 'down':
-        startY = SIZE_HEIGHT - 1
+        startY = settings.height - 1
         endY = 0
-        startX = SIZE_WIDTH - 1
+        startX = settings.width - 1
         endX = 0
         state = 'vector < SIZE_HEIGHT'
-        condition = SIZE_HEIGHT - 1
+        condition = settings.height - 1
         modY = 1
         modX = 1
         mod = 1
         break
       case 'right':
-        startY = SIZE_HEIGHT - 1
+        startY = settings.height - 1
         endY = 0
-        startX = SIZE_HEIGHT - 1
+        startX = settings.height - 1
         endX = 0
         state = 'vector < SIZE_WIDTH'
         condition = SIZE_WIDTH - 1
@@ -145,8 +140,8 @@ class UI {
         break
       case 'left':
         startY = 0
-        endY = SIZE_WIDTH
-        startX = SIZE_HEIGHT - 1
+        endY = settings.width
+        startX = settings.height - 1
         endX = 0
         state = 'vector >= 0'
         condition = 0
@@ -248,39 +243,21 @@ class UI {
       create()
     }
 
-    for (let i = 0; i < SIZE_HEIGHT; i++) {
-      for (let j = 0; j < SIZE_WIDTH; j++) {
+    for (let i = 0; i < settings.height; i++) {
+      for (let j = 0; j < settings.width; j++) {
         this.field[i][j] = {
           ...this.field[i][j],
           isChange: false
         }
       }
     }
-  }
 
-  direction() {
-    // document.addEventListener('keydown', (e) => {
-    //   switch (e.key) {
-    //     case 'w':
-    //       this.moving('up')
-    //       break
-    //     case 's':
-    //       this.moving('down')
-    //       break
-    //     case 'd':
-    //       this.moving('right')
-    //       break
-    //     case 'a':
-    //       this.moving('left')
-    //       break
-    //   }
-    //   this.randomView()
-    // })
+    this.randomView()
   }
 
   render() {
-    for (let i = 0; i < SIZE_HEIGHT; i++) {
-      for (let j = 0; j < SIZE_WIDTH; j++) {
+    for (let i = 0; i < settings.height; i++) {
+      for (let j = 0; j < settings.width; j++) {
         if (this.field[i][j].number > 0) {
           let id = i === 0 ? '0' + `${j}` : i * 10 + j
           this.container.insertAdjacentHTML(
@@ -293,40 +270,4 @@ class UI {
   }
 }
 
-const game = new UI()
-game.direction()
-
-window.addEventListener('mousedown', (e) => {
-  down = {
-    ...down,
-    x: e.screenX,
-    y: e.screenY
-  }
-
-  window.addEventListener('mousemove', moveUp)
-  setTimeout(() => {
-    removeEventListener('mousemove', moveUp)
-    if (move.y < down.y && move.x < down.x + 30 && move.x > down.x - 30) {
-      game.moving('up')
-    } else if (
-      move.y > down.y &&
-      move.x < down.x + 30 &&
-      move.x > down.x - 30
-    ) {
-      game.moving('down')
-    } else if (
-      move.x > down.x &&
-      move.y < down.y + 30 &&
-      move.y > down.y - 30
-    ) {
-      game.moving('right')
-    } else if (
-      move.x < down.x &&
-      move.y < down.y + 30 &&
-      move.y > down.y - 30
-    ) {
-      game.moving('left')
-    }
-    game.randomView()
-  }, 200)
-})
+const game = new Game()

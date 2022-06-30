@@ -3,9 +3,10 @@ class Settings {
     return new Settings(params)
   }
 
-  constructor({ width, height }) {
+  constructor({ width, height, delay }) {
     this.width = width
     this.height = height
+    this.delay = delay
   }
 }
 
